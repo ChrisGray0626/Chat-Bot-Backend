@@ -11,10 +11,10 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
 
 from src.prompt import get_rag_prompt, get_condense_question_prompt
-from src.vector import get_retriever
+from src.vector import get_dde_retriever
 
 
-def get_rag_chain(retriever=get_retriever(), prompt=get_rag_prompt(), model=ChatOpenAI()):
+def get_rag_chain(retriever=get_dde_retriever(), prompt=get_rag_prompt(), model=ChatOpenAI()):
     input_parser = {
         "context": RunnablePassthrough() | retriever,
         "question": RunnablePassthrough()

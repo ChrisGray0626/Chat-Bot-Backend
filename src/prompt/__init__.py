@@ -5,4 +5,4 @@
   @Date 2024/3/4
 """
 
-from base import *
+from src.prompt.base import *

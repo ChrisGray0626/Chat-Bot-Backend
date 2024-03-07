@@ -5,4 +5,4 @@
   @Date 2024/2/29
 """
 
-from base import ChatBot
+from src.bot.base import *
