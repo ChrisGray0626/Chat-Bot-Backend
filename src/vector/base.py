@@ -9,8 +9,6 @@ import os
 import threading
 from typing import Iterable
 
-import chromadb
-from chromadb import Settings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader, Docx2txtLoader, \
     UnstructuredPowerPointLoader, PyPDFLoader
@@ -23,10 +21,10 @@ from src.constant import CORPUS_PATH, DATABASE_PATH
 logging.basicConfig(level=logging.INFO)
 
 
-def get_vector_db(embeddings=OpenAIEmbeddings()):
+def get_vector_db(embedding=OpenAIEmbeddings(), database_path=DATABASE_PATH):
     return Chroma(
-        embedding_function=embeddings,
-        persist_directory=DATABASE_PATH,
+        embedding_function=embedding,
+        persist_directory=database_path,
     )
 
 
@@ -79,15 +77,15 @@ def preprocess_corpus(corpus_path=CORPUS_PATH):
     return docs
 
 
-def vectorize_corpus():
+def vectorize_corpus(embedding=OpenAIEmbeddings(), database_path=DATABASE_PATH):
     # Load documents
     docs = preprocess_corpus()
     # Vectorize documents
     logging.info("Vectorizing corpus")
     Chroma.from_documents(
         documents=docs,
-        embedding=OpenAIEmbeddings(),
-        persist_directory=DATABASE_PATH,
+        embedding=embedding,
+        persist_directory=database_path,
     )
     logging.info("Vectorized corpus")
 

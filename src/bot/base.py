@@ -8,7 +8,7 @@ import logging
 
 from langchain_community.chat_message_histories import ChatMessageHistory
 
-from src.chain.chain import get_conversation_rag_chain
+from src.chain import get_conversation_rag_chain
 
 logging.basicConfig(level=logging.INFO)
 

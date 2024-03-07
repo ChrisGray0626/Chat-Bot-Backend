@@ -10,7 +10,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from src.api.entity import Session, HumanQuestion
-from src.bot.bot import ChatBot
+from src.bot import ChatBot
 
 app = FastAPI()
 

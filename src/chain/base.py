@@ -10,8 +10,8 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
 
-from src.prompt.prompt import get_rag_prompt, get_condense_question_prompt
-from src.vector.vector import get_retriever
+from src.prompt import get_rag_prompt, get_condense_question_prompt
+from src.vector import get_retriever
 
 
 def get_rag_chain(retriever=get_retriever(), prompt=get_rag_prompt(), model=ChatOpenAI()):

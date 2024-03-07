@@ -11,8 +11,8 @@ from dotenv import load_dotenv
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 
-from src.bot.bot import ChatBot
-from src.chain.chain import get_rag_chain, get_condense_question_chain
+from src.bot import ChatBot
+from src.chain import get_rag_chain, get_condense_question_chain
 
 logging.basicConfig(level=logging.INFO)
 
