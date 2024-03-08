@@ -12,7 +12,7 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 
 from src.bot import ChatBot
-from src.chain import get_rag_chain, get_condense_question_chain
+from src.chain import create_rag_chain, create_condense_question_chain, create_rag_chain_with_citation
 
 logging.basicConfig(level=logging.INFO)
 
@@ -30,7 +30,7 @@ def runnable_parallel_test():
 
 def rag_test():
     load_dotenv()
-    chain = get_rag_chain()
+    chain = create_rag_chain()
     question = "请问什么是 DDE Platform"
     response = chain.invoke(question)
     print(response)
@@ -38,7 +38,7 @@ def rag_test():
 
 def condense_question_test():
     load_dotenv()
-    chain = get_condense_question_chain()
+    chain = create_condense_question_chain()
     chat_history = ChatMessageHistory()
     chat_history.add_user_message("请问什么是 DDE Platform")
     chat_history.add_ai_message("DDE Platform 是一个大平台")
@@ -63,7 +63,7 @@ def condense_question_rag_test():
         "DDE 平台提供数据准备、计算资源发放、API 生命周期管理、访问控制和流控等服务。支持弹性扩容、数据融合、亲属关系分析、数据溯源、数据价值和质量评估、数据归档销毁等功能。此外，它还通过无限的云资源促进了协作科学分析，专注于创新研究工作的数据、模型和计算资源。")
     question = "请问它的使命是什么"
 
-    chain = get_condense_question_chain() | get_rag_chain()
+    chain = create_condense_question_chain() | create_rag_chain()
     response = chain.invoke({
         "chat_history": chat_history.messages,
         "question": question
@@ -87,6 +87,13 @@ def conversation_bot_test():
         print(a)
 
 
+def rag_with_citation_test():
+    chain = create_rag_chain_with_citation()
+    question = "请问什么是 DDE Platform"
+    a = chain.invoke(question)
+    print(a)
+
+
 if __name__ == '__main__':
-    conversation_bot_test()
+    rag_with_citation_test()
     pass

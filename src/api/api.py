@@ -11,6 +11,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from src.api.entity import Session, HumanQuestion
 from src.bot import ChatBot
+from src.chain import create_rag_chain_with_citation
 
 app = FastAPI()
 
@@ -29,6 +30,7 @@ load_dotenv()
 # Create conversation bot
 bot = ChatBot()
 
+qa_chain = create_rag_chain_with_citation()
 
 @app.get("/session/{session_id}")
 async def find_session(session_id: str):
@@ -40,6 +42,12 @@ async def find_session(session_id: str):
 async def chat(human_question: HumanQuestion):
     return bot.chat(human_question.content)
 
+
+@app.post("/qa")
+async def qa(question: str):
+    response = qa_chain.invoke(question)
+
+    return response
 
 if __name__ == '__main__':
     uvicorn.run(app, host="localhost", port=8000)

@@ -14,7 +14,6 @@ def similarity_search_test():
     vector_db = create_dde_vector_db()
     result = vector_db.similarity_search_with_score(
         query="full name of DDE",
-
     )
     for r in result:
         print(r)
