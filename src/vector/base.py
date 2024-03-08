@@ -9,13 +9,12 @@ import os
 import threading
 from typing import Iterable
 
-import chromadb
-from chromadb import Settings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader, Docx2txtLoader, \
     UnstructuredPowerPointLoader, PyPDFLoader
 from langchain_community.vectorstores.chroma import Chroma
 from langchain_core.documents import Document
+from langchain_core.embeddings import Embeddings
 from langchain_openai import OpenAIEmbeddings
 
 from src.constant import CORPUS_PATH, DATABASE_PATH
@@ -23,15 +22,20 @@ from src.constant import CORPUS_PATH, DATABASE_PATH
 logging.basicConfig(level=logging.INFO)
 
 
-def get_vector_db(embeddings=OpenAIEmbeddings()):
+# TODO 相似度计算，检索效果
+def create_vector_db(embedding: Embeddings, database_path: str):
     return Chroma(
-        embedding_function=embeddings,
-        persist_directory=DATABASE_PATH,
+        embedding_function=embedding,
+        persist_directory=database_path,
     )
 
 
-def get_retriever():
-    return get_vector_db().as_retriever()
+def create_dde_vector_db(embedding=OpenAIEmbeddings(), database_path=DATABASE_PATH):
+    return create_vector_db(embedding, database_path)
+
+
+def get_dde_retriever():
+    return create_dde_vector_db().as_retriever()
 
 
 def load_doc(file_path: str):
@@ -79,15 +83,15 @@ def preprocess_corpus(corpus_path=CORPUS_PATH):
     return docs
 
 
-def vectorize_corpus():
+def vectorize_corpus(embedding=OpenAIEmbeddings(), database_path=DATABASE_PATH):
     # Load documents
     docs = preprocess_corpus()
     # Vectorize documents
     logging.info("Vectorizing corpus")
     Chroma.from_documents(
         documents=docs,
-        embedding=OpenAIEmbeddings(),
-        persist_directory=DATABASE_PATH,
+        embedding=embedding,
+        persist_directory=database_path,
     )
     logging.info("Vectorized corpus")
 

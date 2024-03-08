@@ -8,13 +8,13 @@ import logging
 
 from langchain_community.chat_message_histories import ChatMessageHistory
 
-from src.chain.chain import get_conversation_rag_chain
+from src.chain import create_conversation_rag_chain
 
 logging.basicConfig(level=logging.INFO)
 
 
 class ChatBot:
-    def __init__(self, retrieval_chain=get_conversation_rag_chain(), chat_history=ChatMessageHistory()):
+    def __init__(self, retrieval_chain=create_conversation_rag_chain(), chat_history=ChatMessageHistory()):
         self.retrieval_chain = retrieval_chain
         # Create chat history
         # TODO chat_history 解藕

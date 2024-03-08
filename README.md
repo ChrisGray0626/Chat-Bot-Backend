@@ -1,5 +1,17 @@
 # Chat Bot Backend
 
-## Environment Variable
+## Setup
 
-1. Add your `OPENAI_API_KEY` to your environment variable.
+### Set OpenAI API KEY
+
+Add your `OPENAI_API_KEY` to your environment variable.
+
+### Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Prepare the corpus
+
+Vectorize the corpus: `vector.vectorize_corpus()`.

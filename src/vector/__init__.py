@@ -5,5 +5,4 @@
   @Date 2024/3/4
 """
 
-if __name__ == '__main__':
-    pass
+from src.vector.base import *
