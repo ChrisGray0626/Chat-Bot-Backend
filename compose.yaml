@@ -1,0 +1,5 @@
+services:
+  backend:
+    image: chat-bot-backend:0.1
+    ports:
+      - "8000:8000"

@@ -6,16 +6,16 @@
 """
 from operator import itemgetter
 
-from langchain_core.output_parsers import StrOutputParser, ListOutputParser, JsonOutputParser
+from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough, RunnableParallel
-from langchain_openai import ChatOpenAI
 
+from src.model import create_openai_model
 from src.prompt import get_rag_prompt, get_condense_question_prompt
 from src.util import format_docs
 from src.vector import get_dde_retriever
 
 
-def create_rag_chain(retriever=get_dde_retriever(), prompt=get_rag_prompt(), model=ChatOpenAI()):
+def create_rag_chain(retriever=get_dde_retriever(), prompt=get_rag_prompt(), model=create_openai_model()):
     input_parser = {
         "context": RunnablePassthrough() | retriever,
         "question": RunnablePassthrough()
@@ -32,7 +32,7 @@ def create_rag_chain(retriever=get_dde_retriever(), prompt=get_rag_prompt(), mod
     return chain
 
 
-def create_condense_question_chain(prompt=get_condense_question_prompt(), model=ChatOpenAI()):
+def create_condense_question_chain(prompt=get_condense_question_prompt(), model=create_openai_model()):
     input_parser = {
         "chat_history": itemgetter("chat_history"),
         "question": itemgetter("question")
@@ -55,7 +55,7 @@ def create_conversation_rag_chain():
     return chain
 
 
-def create_rag_chain_with_citation(retriever=get_dde_retriever(), prompt=get_rag_prompt(), model=ChatOpenAI()):
+def create_rag_chain_with_citation(retriever=get_dde_retriever(), prompt=get_rag_prompt(), model=create_openai_model()):
     input_parser = {
         "context": RunnablePassthrough() | retriever | format_docs,
         "question": RunnablePassthrough(),

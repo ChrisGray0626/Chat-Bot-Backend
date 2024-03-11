@@ -30,7 +30,6 @@ class ChatBot:
         else:
             chat_history = []
         # Get answer
-        # TODO 异步实现
         answer = self.retrieval_chain.invoke({
             "chat_history": chat_history,
             "question": question

@@ -29,7 +29,6 @@ def runnable_parallel_test():
 
 
 def rag_test():
-    load_dotenv()
     chain = create_rag_chain()
     question = "请问什么是 DDE Platform"
     response = chain.invoke(question)
@@ -37,7 +36,6 @@ def rag_test():
 
 
 def condense_question_test():
-    load_dotenv()
     chain = create_condense_question_chain()
     chat_history = ChatMessageHistory()
     chat_history.add_user_message("请问什么是 DDE Platform")
@@ -72,8 +70,6 @@ def condense_question_rag_test():
 
 
 def conversation_bot_test():
-    # Load environment variables
-    load_dotenv()
     # Create bot
     bot = ChatBot()
     q1 = "请问什么是 DDE Platform"
@@ -95,5 +91,5 @@ def rag_with_citation_test():
 
 
 if __name__ == '__main__':
-    rag_with_citation_test()
+    conversation_bot_test()
     pass

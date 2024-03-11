@@ -12,6 +12,7 @@ from starlette.middleware.cors import CORSMiddleware
 from src.api.entity import Session, HumanQuestion
 from src.bot import ChatBot
 from src.chain import create_rag_chain_with_citation
+from src.constant import HOST, PORT
 
 app = FastAPI()
 
@@ -45,9 +46,9 @@ async def chat(human_question: HumanQuestion):
 
 @app.post("/qa")
 async def qa(question: str):
-    response = qa_chain.invoke(question)
+    response = await qa_chain.ainvoke(question)
 
     return response
 
 if __name__ == '__main__':
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(app, host=HOST, port=PORT)

@@ -4,10 +4,8 @@
   @Author Chris
   @Date 2024/3/7
 """
-import chromadb
 
-from src.constant import DATABASE_PATH
-from src.vector import vectorize_corpus, create_vector_db, create_dde_vector_db
+from src.vector import vectorize_corpus, create_dde_vector_db
 
 
 def similarity_search_test():

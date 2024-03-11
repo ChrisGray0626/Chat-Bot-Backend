@@ -4,7 +4,6 @@
   @Author Chris
   @Date 2024/3/4
 """
-from langchain import hub
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 
