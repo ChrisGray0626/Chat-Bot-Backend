@@ -4,11 +4,9 @@
   @Author Chris
   @Date 2024/3/4
 """
+from src.util import check_sqlite3_version
 
-__import__('pysqlite3')
-import sys
-
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+check_sqlite3_version()
 
 import logging
 import os

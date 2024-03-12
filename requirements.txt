@@ -9,3 +9,4 @@ python-dotenv==1.0.1
 starlette==0.36.3
 uvicorn==0.27.1
 pysqlite3-binary==0.5.2.post3
+redis==5.0.3

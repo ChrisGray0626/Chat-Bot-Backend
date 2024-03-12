@@ -3,3 +3,5 @@ services:
     image: chat-bot-backend:0.1
     ports:
       - "8000:8000"
+    volumes:
+      - /Users/yuxiaohui/Desktop/Code/Python/Chat-Bot-Backend/database:/app/database

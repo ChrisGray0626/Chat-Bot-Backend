@@ -33,6 +33,7 @@ bot = ChatBot()
 
 qa_chain = create_rag_chain_with_citation()
 
+
 @app.get("/session/{session_id}")
 async def find_session(session_id: str):
     messages = [{'role': message.type, 'content': message.content} for message in bot.chat_history.messages]
@@ -50,5 +51,7 @@ async def qa(question: str):
 
     return response
 
+
 if __name__ == '__main__':
     uvicorn.run(app, host=HOST, port=PORT)
+    # TODO uvicorn run:app --host 127.0.0.1 --port 8000 --workers 1 --reload

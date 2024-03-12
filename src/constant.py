@@ -15,7 +15,9 @@ load_dotenv()
 # Database
 DATABASE_PATH = os.getenv("DATABASE_PATH", ROOT_PATH + "database/")
 # Corpus
-CORPUS_PATH = os.getenv("CORPUS_PATH", ROOT_PATH + "corpus/")
+CORPUS_PATH = os.getenv("CORPUS_PATH", DATA_PATH + "corpus/")
+# Redis
+REDIS_URL = os.getenv("REDIS_URL")
 # Server
 HOST = os.getenv("HOST")
 PORT = int(os.getenv("PORT"))
