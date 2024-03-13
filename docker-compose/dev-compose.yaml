@@ -1,6 +1,6 @@
 services:
   backend:
-    image: chat-bot-backend:0.1
+    image: chrisgray0626/chat-bot-backend:0.2
     ports:
       - "8000:8000"
     volumes:
