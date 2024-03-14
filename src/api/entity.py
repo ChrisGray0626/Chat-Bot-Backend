@@ -35,3 +35,4 @@ class QaRequest(BaseModel):
 class QAResponse(BaseModel):
     question: str
     answer: str
+    citation: list
