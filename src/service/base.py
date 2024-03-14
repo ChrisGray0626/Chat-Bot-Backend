@@ -6,8 +6,11 @@
 """
 import logging
 
+from langchain_community.utilities.redis import get_client
+
 from src.api.entity import Session, ChatResponse, ChatRequest, QaRequest, QAResponse
 from src.chain import create_rag_chain_with_citation, create_conversation_rag_chain
+from src.constant import REDIS_URL
 from src.memory import create_redis_history
 from src.util import create_uuid
 
@@ -19,11 +22,6 @@ def find_session(session_id: str):
     session = Session(session_id=session_id, messages=messages)
 
     return session
-
-
-def find_all_session():
-    # TODO
-    pass
 
 
 def dde_rag_chat(request: ChatRequest):
