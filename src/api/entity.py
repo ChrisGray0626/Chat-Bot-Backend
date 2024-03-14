@@ -17,6 +17,21 @@ class Session(BaseModel):
     messages: list[Message]
 
 
-class HumanQuestion(BaseModel):
+class ChatRequest(BaseModel):
     session_id: str
-    content: str
+    question: str
+
+
+class ChatResponse(BaseModel):
+    session_id: str
+    question: str
+    answer: str
+
+
+class QaRequest(BaseModel):
+    question: str
+
+
+class QAResponse(BaseModel):
+    question: str
+    answer: str

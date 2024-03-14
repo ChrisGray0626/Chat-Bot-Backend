@@ -17,16 +17,16 @@ from src.vector import get_dde_retriever
 
 def create_rag_chain(retriever=get_dde_retriever(), prompt=get_rag_prompt(), model=create_openai_model()):
     input_parser = {
-        "context": RunnablePassthrough() | retriever,
-        "question": RunnablePassthrough()
+        "context": RunnablePassthrough() | retriever | format_docs,
+        "question": RunnablePassthrough(),
     }
     output_parser = StrOutputParser()
 
     chain = (
-            input_parser |
-            prompt |
-            model |
-            output_parser
+            input_parser
+            | prompt
+            | model
+            | output_parser
     )
 
     return chain
@@ -34,16 +34,16 @@ def create_rag_chain(retriever=get_dde_retriever(), prompt=get_rag_prompt(), mod
 
 def create_condense_question_chain(prompt=get_condense_question_prompt(), model=create_openai_model()):
     input_parser = {
-        "chat_history": itemgetter("chat_history"),
+        "history": itemgetter("history"),
         "question": itemgetter("question")
     }
     output_parser = StrOutputParser()
 
     chain = (
-            input_parser |
-            prompt |
-            model |
-            output_parser
+            input_parser
+            | prompt
+            | model
+            | output_parser
     )
 
     return chain
@@ -60,11 +60,12 @@ def create_rag_chain_with_citation(retriever=get_dde_retriever(), prompt=get_rag
         "context": RunnablePassthrough() | retriever | format_docs,
         "question": RunnablePassthrough(),
     }
+    output_parser = StrOutputParser()
 
     chain = RunnableParallel(input_parser).assign(answer=(
             prompt
             | model
-            | StrOutputParser()
+            | output_parser
     ))
 
     return chain

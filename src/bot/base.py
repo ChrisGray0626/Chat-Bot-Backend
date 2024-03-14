@@ -31,7 +31,7 @@ class ChatBot:
             chat_history = []
         # Get answer
         answer = self.retrieval_chain.invoke({
-            "chat_history": chat_history,
+            "history": chat_history,
             "question": question
         })
         # Add answer

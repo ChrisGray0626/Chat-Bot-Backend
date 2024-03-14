@@ -5,6 +5,8 @@
   @Date 2024/3/1
 """
 
+import uuid
+
 
 def read_txt(file_path):
     with open(file_path, "r", encoding='utf-8') as f:
@@ -35,3 +37,7 @@ def check_sqlite3_version():
         __import__('pysqlite3')
         import sys
         sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
+
+def create_uuid():
+    return str(uuid.uuid4())

@@ -4,11 +4,11 @@
   @Author Chris
   @Date 2024/3/12
 """
-from src.memory import create_redis_chat_history
+from src.memory import create_redis_history
 
 
 def redis_test():
-    chat_history = create_redis_chat_history(session_id="1")
+    chat_history = create_redis_history(session_id="1")
     # chat_history.add_user_message("hello")
     # chat_history.add_ai_message("hi")
 
