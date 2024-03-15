@@ -12,7 +12,6 @@ from starlette.middleware.cors import CORSMiddleware
 
 import src.service as service
 from src.api.entity import ChatRequest, QaRequest
-from src.bot import ChatBot
 from src.chain import create_rag_chain_with_citation
 from src.constant import HOST, PORT
 
@@ -27,13 +26,6 @@ app.add_middleware(
     allow_headers=["*"],
     expose_headers=["*"],
 )
-
-# Load environment variables
-load_dotenv()
-# Create conversation bot
-bot = ChatBot()
-
-qa_chain = create_rag_chain_with_citation()
 
 
 @app.get("/session/{session_id}")
