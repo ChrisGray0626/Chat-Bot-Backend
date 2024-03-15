@@ -6,8 +6,6 @@ WORKDIR /app
 # Install the required denpendencies
 COPY requirements.txt .
 RUN pip install -r requirements.txt -i https://mirrors.zju.edu.cn/pypi/web/simple
-# Copy the environment variable file
-COPY .env .
 # Copy the source code
 COPY src ./src
 # Set the environment variable PYTHONPATH

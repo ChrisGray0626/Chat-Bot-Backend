@@ -5,7 +5,4 @@ services:
       - "8000:8000"
     volumes:
       - /Users/yuxiaohui/Desktop/Code/Python/Chat-Bot-Backend/database:/app/database
-  redis:
-    image: redis:latest
-    ports:
-      - "6379:6379"
+      - /Users/yuxiaohui/Desktop/Code/Python/Chat-Bot-Backend/.env:/app/.env
