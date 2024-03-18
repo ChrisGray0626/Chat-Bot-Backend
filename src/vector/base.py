@@ -4,11 +4,16 @@
   @Author Chris
   @Date 2024/3/4
 """
+from src.util import check_sqlite3_version
+
+check_sqlite3_version()
+
 import logging
 import os
 import threading
 from typing import Iterable
 
+from dotenv import load_dotenv
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader, Docx2txtLoader, \
     UnstructuredPowerPointLoader, PyPDFLoader
@@ -22,7 +27,13 @@ from src.constant import CORPUS_PATH, DATABASE_PATH
 logging.basicConfig(level=logging.INFO)
 
 
-# TODO 相似度计算，检索效果
+def create_openai_embedding():
+    load_dotenv()
+    embedding = OpenAIEmbeddings()
+
+    return embedding
+
+
 def create_vector_db(embedding: Embeddings, database_path: str):
     return Chroma(
         embedding_function=embedding,
@@ -30,7 +41,7 @@ def create_vector_db(embedding: Embeddings, database_path: str):
     )
 
 
-def create_dde_vector_db(embedding=OpenAIEmbeddings(), database_path=DATABASE_PATH):
+def create_dde_vector_db(embedding=create_openai_embedding(), database_path=DATABASE_PATH):
     return create_vector_db(embedding, database_path)
 
 
@@ -83,9 +94,9 @@ def preprocess_corpus(corpus_path=CORPUS_PATH):
     return docs
 
 
-def vectorize_corpus(embedding=OpenAIEmbeddings(), database_path=DATABASE_PATH):
+def vectorize_corpus(embedding=create_openai_embedding(), corpus_path=CORPUS_PATH, database_path=DATABASE_PATH):
     # Load documents
-    docs = preprocess_corpus()
+    docs = preprocess_corpus(corpus_path)
     # Vectorize documents
     logging.info("Vectorizing corpus")
     Chroma.from_documents(
@@ -98,4 +109,3 @@ def vectorize_corpus(embedding=OpenAIEmbeddings(), database_path=DATABASE_PATH):
 
 if __name__ == '__main__':
     vectorize_corpus()
-    pass

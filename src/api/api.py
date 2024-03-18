@@ -4,14 +4,16 @@
   @Author Chris
   @Date 2024/2/27
 """
+
 import uvicorn
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from src.api.entity import Session, HumanQuestion
-from src.bot import ChatBot
+import src.service as service
+from src.api.entity import ChatRequest, QaRequest
 from src.chain import create_rag_chain_with_citation
+from src.constant import HOST, PORT
 
 app = FastAPI()
 
@@ -25,29 +27,28 @@ app.add_middleware(
     expose_headers=["*"],
 )
 
-# Load environment variables
-load_dotenv()
-# Create conversation bot
-bot = ChatBot()
-
-qa_chain = create_rag_chain_with_citation()
 
 @app.get("/session/{session_id}")
 async def find_session(session_id: str):
-    messages = [{'role': message.type, 'content': message.content} for message in bot.chat_history.messages]
-    return Session(session_id=session_id, messages=messages)
+    session = service.find_session(session_id)
+
+    return session
 
 
-@app.post("/chat")
-async def chat(human_question: HumanQuestion):
-    return bot.chat(human_question.content)
-
-
-@app.post("/qa")
-async def qa(question: str):
-    response = qa_chain.invoke(question)
+@app.post("/dde_rag_chat")
+async def dde_rag_chat(request: ChatRequest):
+    response = service.dde_rag_chat(request)
 
     return response
 
+
+@app.post("/dde_rag_qa")
+async def dde_rag_qa(request: QaRequest):
+    response = service.dde_rag_qa(request)
+
+    return response
+
+
 if __name__ == '__main__':
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(app, host=HOST, port=PORT)
+    # uvicorn src.api.api:app --host 127.0.0.1 --port 8000 --reload

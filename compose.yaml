@@ -1,0 +1,8 @@
+services:
+  backend:
+    image: chrisgray0626/chat-bot-backend:0.3
+    ports:
+      - "8000:8000"
+    volumes:
+      - /Users/yuxiaohui/Desktop/Code/Python/Chat-Bot-Backend/database:/app/database
+      - /Users/yuxiaohui/Desktop/Code/Python/Chat-Bot-Backend/.env:/app/.env

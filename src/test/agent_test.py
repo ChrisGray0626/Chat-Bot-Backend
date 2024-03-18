@@ -4,17 +4,16 @@
   @Author Chris
   @Date 2024/3/7
 """
-from langchain.agents import initialize_agent, AgentType
-from langchain_community.tools.human import HumanInputRun
+import asyncio
 
 from src.agent import create_dde_agent, create_react_agent_with_tool
 from src.tool import create_human_input_run, create_shell
 
 
-def dde_agent_test():
+async def dde_agent_test():
     agent = create_dde_agent()
     q = "What is the full name of DDE"
-    a = agent.invoke({
+    a = await agent.ainvoke({
         "question": q,
     })
     print(a)
@@ -26,7 +25,7 @@ def agent_with_human_test():
     ]
     agent = create_react_agent_with_tool(tools)
     q = "What is the full name of DDE"
-    a = agent.invoke({
+    a = agent.ainvoke({
         "question": q,
     })
     print(a)
@@ -46,5 +45,6 @@ def agent_with_shell_test():
 
 
 if __name__ == '__main__':
-    agent_with_shell_test()
+    asyncio.run(dde_agent_test())
+    asyncio.run(dde_agent_test())
     pass

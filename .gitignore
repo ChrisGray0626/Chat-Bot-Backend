@@ -1,3 +1,7 @@
 .idea
-/database/
+
+data/corpus
+database
 .env
+
+.DS_Store

@@ -11,8 +11,10 @@ from dotenv import load_dotenv
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 
-from src.bot import ChatBot
+from src.api.entity import ChatRequest
 from src.chain import create_rag_chain, create_condense_question_chain, create_rag_chain_with_citation
+from src.service import dde_rag_chat
+from src.util import create_uuid
 
 logging.basicConfig(level=logging.INFO)
 
@@ -29,7 +31,6 @@ def runnable_parallel_test():
 
 
 def rag_test():
-    load_dotenv()
     chain = create_rag_chain()
     question = "请问什么是 DDE Platform"
     response = chain.invoke(question)
@@ -37,7 +38,6 @@ def rag_test():
 
 
 def condense_question_test():
-    load_dotenv()
     chain = create_condense_question_chain()
     chat_history = ChatMessageHistory()
     chat_history.add_user_message("请问什么是 DDE Platform")
@@ -72,10 +72,7 @@ def condense_question_rag_test():
 
 
 def conversation_bot_test():
-    # Load environment variables
-    load_dotenv()
-    # Create bot
-    bot = ChatBot()
+    session_id = create_uuid()
     q1 = "请问什么是 DDE Platform"
     q2 = "请问它有哪些功能"
     q3 = "请问它的全称是什么"
@@ -83,13 +80,14 @@ def conversation_bot_test():
     qs = [q1, q2, q3, q4]
     for q in qs:
         print(q)
-        a = bot.chat(question=q)
+        a = dde_rag_chat(ChatRequest(session_id=session_id, question=q))
         print(a)
 
 
 def rag_with_citation_test():
     chain = create_rag_chain_with_citation()
     question = "请问什么是 DDE Platform"
+    print(question)
     a = chain.invoke(question)
     print(a)
 

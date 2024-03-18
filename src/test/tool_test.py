@@ -4,7 +4,6 @@
   @Author Chris
   @Date 2024/3/8
 """
-from langchain_community.tools.shell import ShellTool
 
 from src.tool import create_adder, create_shell
 
