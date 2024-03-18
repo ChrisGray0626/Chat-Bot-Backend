@@ -11,6 +11,8 @@ from langchain_core.tools import tool
 
 from src.vector import get_dde_retriever
 
+# TODO Web search tool
+
 
 def create_dde_search():
     retriever = get_dde_retriever()

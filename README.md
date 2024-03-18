@@ -15,3 +15,5 @@ pip install -r requirements.txt
 ### Prepare the corpus
 
 Vectorize the corpus: `vector.vectorize_corpus()`.
+
+[//]: # (TODO)

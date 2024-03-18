@@ -2,7 +2,7 @@
 
 REGISTRY_URL=10.189.184.86:5000
 IMAGE_NAME=chat-bot-backend
-IMAGE_TAG=0.3
+IMAGE_TAG=0.4
 
 echo "Pushing image ${IMAGE_NAME}:${IMAGE_TAG} to registry ${REGISTRY_URL}..."
 
