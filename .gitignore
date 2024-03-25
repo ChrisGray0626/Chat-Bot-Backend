@@ -5,3 +5,5 @@ database
 .env
 
 .DS_Store
+
+src/test
