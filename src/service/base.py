@@ -6,11 +6,9 @@
 """
 import logging
 
-from langchain_community.utilities.redis import get_client
-
-from src.api.entity import Session, ChatResponse, ChatRequest, QaRequest, QAResponse
-from src.chain import create_rag_chain_with_citation, create_conversation_rag_chain
-from src.constant import REDIS_URL
+from src.agent import create_doc_writer_agent
+from src.api.entity import *
+from src.chain import *
 from src.memory import create_redis_history
 from src.util import create_uuid
 
@@ -35,8 +33,8 @@ def dde_rag_chat(request: ChatRequest):
 
     chain = create_conversation_rag_chain()
     output = chain.invoke({
-            "history": history.messages,
-            "question": question
+        "history": history.messages,
+        "question": question
     })
     history.add_ai_message(output)
     response = ChatResponse(session_id=session_id, question=question, answer=output)
@@ -45,12 +43,35 @@ def dde_rag_chat(request: ChatRequest):
     return response
 
 
-def dde_rag_qa(qa_request: QaRequest):
-    logging.info("QA Request: %s", qa_request)
-    question = qa_request.question
+def dde_rag_qa(request: QaRequest):
+    logging.info("QA Request: %s", request)
+    question = request.question
     chain = create_rag_chain_with_citation()
     output = chain.invoke(question)
     logging.info("output: %s", output)
     response = QAResponse(question=question, answer=output["answer"], citation=output["context"])
     logging.info("QA Response: %s", response)
+
+    return response
+
+
+def generate_outline(request: OutlineRequest):
+    logging.info("Outline Request: %s", request)
+    title = request.title
+    chain = create_outline_generation_chain()
+    outline = chain.invoke(title)
+    response = OutlineResponse(outline=outline)
+    logging.info("Outline Response: %s", response)
+
+    return response
+
+
+def generate_doc(request: DocRequest):
+    logging.info("Doc Request: %s", request)
+    outline = request.outline
+    agent = create_doc_writer_agent()
+    doc = agent.invoke({"outline": outline})
+    response = DocResponse(doc=doc)
+    logging.info("Doc Response: %s", response)
+
     return response

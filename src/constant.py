@@ -12,8 +12,8 @@ ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/"
 DATA_PATH = ROOT_PATH + "data/"
 # Load environment variables
 load_dotenv()
-# Database
-DATABASE_PATH = os.getenv("DATABASE_PATH", ROOT_PATH + "database/")
+# Vector Database
+VECTOR_DATABASE_PATH = os.getenv("VECTOR_DATABASE_PATH", ROOT_PATH + "database/")
 # Corpus
 CORPUS_PATH = os.getenv("CORPUS_PATH", DATA_PATH + "corpus/")
 # Redis
