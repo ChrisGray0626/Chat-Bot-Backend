@@ -36,3 +36,19 @@ class QAResponse(BaseModel):
     question: str
     answer: str
     citation: list
+
+
+class OutlineRequest(BaseModel):
+    title: str
+
+
+class OutlineResponse(BaseModel):
+    outline: str
+
+
+class DocRequest(BaseModel):
+    outline: str
+
+
+class DocResponse(BaseModel):
+    doc: str

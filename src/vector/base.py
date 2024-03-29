@@ -22,7 +22,7 @@ from langchain_core.documents import Document
 from langchain_core.embeddings import Embeddings
 from langchain_openai import OpenAIEmbeddings
 
-from src.constant import CORPUS_PATH, DATABASE_PATH
+from src.constant import CORPUS_PATH, VECTOR_DATABASE_PATH
 
 logging.basicConfig(level=logging.INFO)
 
@@ -41,11 +41,11 @@ def create_vector_db(embedding: Embeddings, database_path: str):
     )
 
 
-def create_dde_vector_db(embedding=create_openai_embedding(), database_path=DATABASE_PATH):
+def create_dde_vector_db(embedding=create_openai_embedding(), database_path=VECTOR_DATABASE_PATH):
     return create_vector_db(embedding, database_path)
 
 
-def get_dde_retriever():
+def create_dde_retriever():
     return create_dde_vector_db().as_retriever()
 
 
@@ -94,7 +94,7 @@ def preprocess_corpus(corpus_path=CORPUS_PATH):
     return docs
 
 
-def vectorize_corpus(embedding=create_openai_embedding(), corpus_path=CORPUS_PATH, database_path=DATABASE_PATH):
+def vectorize_corpus(embedding=create_openai_embedding(), corpus_path=CORPUS_PATH, database_path=VECTOR_DATABASE_PATH):
     # Load documents
     docs = preprocess_corpus(corpus_path)
     # Vectorize documents

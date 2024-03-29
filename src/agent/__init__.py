@@ -6,3 +6,4 @@
 """
 
 from src.agent.base import *
+from src.agent.docwriter.base import *

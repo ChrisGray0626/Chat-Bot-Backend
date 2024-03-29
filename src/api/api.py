@@ -6,13 +6,11 @@
 """
 
 import uvicorn
-from dotenv import load_dotenv
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 import src.service as service
-from src.api.entity import ChatRequest, QaRequest
-from src.chain import create_rag_chain_with_citation
+from src.api.entity import *
 from src.constant import HOST, PORT
 
 app = FastAPI()
@@ -49,6 +47,19 @@ async def dde_rag_qa(request: QaRequest):
     return response
 
 
+@app.post("/outline_generation")
+async def generate_outline(request: OutlineRequest):
+    response = service.generate_outline(request)
+
+    return response
+
+
+@app.post("/doc_generation")
+async def generate_doc(request: DocRequest):
+    response = service.generate_doc(request)
+
+    return response
+
+
 if __name__ == '__main__':
     uvicorn.run(app, host=HOST, port=PORT)
-    # uvicorn src.api.api:app --host 127.0.0.1 --port 8000 --reload

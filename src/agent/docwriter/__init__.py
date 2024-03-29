@@ -2,8 +2,7 @@
 """
   @Description
   @Author Chris
-  @Date 2024/2/29
+  @Date 2024/3/26
 """
 
-if __name__ == '__main__':
-    pass
+from src.agent.docwriter.base import *
