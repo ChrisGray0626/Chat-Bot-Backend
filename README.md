@@ -95,7 +95,7 @@ Here are some ways to run it:
 1. From Docker image.
 2. From source code.
 
-### From docker image
+### From Docker image
 
 #### Run Docker Compose
 

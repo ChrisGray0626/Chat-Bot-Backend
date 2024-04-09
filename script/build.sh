@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE_TAG=0.4
+IMAGE_TAG=0.5
 # Change to the root directory
 cd ..
 # Build the image
