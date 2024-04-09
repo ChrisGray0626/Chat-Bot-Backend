@@ -178,7 +178,7 @@ def creat_outline_generation_rag_prompt():
     ## Heading 2
     ...
     
-    Please do not generate any other content just the outline that includes the title.
+    Please only generate the outline including the title.
     """
 
     prompt = ChatPromptTemplate.from_template(prompt_template)
@@ -194,7 +194,7 @@ def creat_content_generation_rag_prompt():
     </context>
     Heading: {input} (format: ...Parent Parent Heading > Parent Heading > Heading)
 
-    Please do not generate any other content just the content for this heading.
+    Please only generate the content excluding the headings.
     """
 
     prompt = ChatPromptTemplate.from_template(prompt_template)

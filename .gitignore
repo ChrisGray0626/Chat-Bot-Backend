@@ -6,4 +6,4 @@ database
 
 .DS_Store
 
-src/test
+test
