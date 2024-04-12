@@ -71,8 +71,8 @@ def create_conversation_rag_chain():
     return chain
 
 
-def create_rag_chain_with_citation(retriever=create_dde_retriever(), prompt=get_rag_prompt(),
-                                   model=DEFAULT_MODEL):
+def create_rag_chain_with_source(retriever=create_dde_retriever(), prompt=get_rag_prompt(),
+                                 model=DEFAULT_MODEL):
     input_parser = {
         "context": retriever | format_docs,
         "input": RunnablePassthrough(),
@@ -91,7 +91,7 @@ def create_rag_chain_with_citation(retriever=create_dde_retriever(), prompt=get_
 def create_dde_doc_writing_chain(model=DEFAULT_MODEL):
     retriever = create_dde_retriever()
     prompt = create_doc_writing_prompt()
-    chain = create_rag_chain_with_citation(retriever, prompt, model)
+    chain = create_rag_chain_with_source(retriever, prompt, model)
 
     return chain
 

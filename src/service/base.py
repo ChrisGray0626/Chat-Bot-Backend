@@ -28,6 +28,7 @@ def dde_rag_chat(request: ChatRequest):
     question = request.question
     if session_id is None or session_id == "":
         session_id = create_uuid()
+    # TODO RunnableWithMessageHistory
     history = create_redis_history(session_id)
     history.add_user_message(question)
 
@@ -46,7 +47,7 @@ def dde_rag_chat(request: ChatRequest):
 def dde_rag_qa(request: QaRequest):
     logging.info("QA Request: %s", request)
     question = request.question
-    chain = create_rag_chain_with_citation()
+    chain = create_rag_chain_with_source()
     output = chain.invoke(question)
     logging.info("output: %s", output)
     response = QAResponse(question=question, answer=output["answer"], citation=output["context"])

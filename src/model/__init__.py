@@ -6,3 +6,5 @@
 """
 
 from src.model.base import *
+from src.model.model_config import ModelConfig
+from src.model.model_factory import *

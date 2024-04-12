@@ -5,9 +5,9 @@
   @Date 2024/3/11
 """
 from dotenv import load_dotenv
+from langchain_community.chat_models.moonshot import MoonshotChat
 from langchain_community.chat_models.tongyi import ChatTongyi
 from langchain_openai import ChatOpenAI
-from langchain_community.chat_models.moonshot import MoonshotChat
 
 
 def create_gpt_3():
@@ -38,4 +38,9 @@ def create_tongyi():
     return model
 
 
-DEFAULT_MODEL = create_gpt_3()
+GPT_3 = "gpt-3.5-turbo"
+GPT_4 = "gpt-4"
+MOONSHOT = "moonshot-v1-8k"
+TONGYI = "qwen-plus"
+
+SUPPORTED_MODELS = [GPT_3, GPT_4, MOONSHOT, TONGYI]
