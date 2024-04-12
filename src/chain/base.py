@@ -15,9 +15,9 @@ from src.util import format_docs
 from src.vector import create_dde_retriever
 
 
-def create_rag_chain(retriever=create_dde_retriever(), prompt=get_rag_prompt(), model=create_gpt_3()):
+def create_rag_chain(retriever=create_dde_retriever(), prompt=get_rag_prompt(), model=DEFAULT_MODEL):
     input_parser = {
-        "context": RunnablePassthrough() | retriever | format_docs,
+        "context": retriever | format_docs,
         "input": RunnablePassthrough(),
     }
     output_parser = StrOutputParser()
@@ -74,7 +74,7 @@ def create_conversation_rag_chain():
 def create_rag_chain_with_citation(retriever=create_dde_retriever(), prompt=get_rag_prompt(),
                                    model=DEFAULT_MODEL):
     input_parser = {
-        "context": RunnablePassthrough() | retriever | format_docs,
+        "context": retriever | format_docs,
         "input": RunnablePassthrough(),
     }
     output_parser = StrOutputParser()

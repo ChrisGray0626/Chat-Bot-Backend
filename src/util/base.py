@@ -4,7 +4,7 @@
   @Author Chris
   @Date 2024/3/1
 """
-
+import os
 import uuid
 
 
@@ -24,9 +24,18 @@ def format_docs(docs: list):
 
 
 def desensitize_docs(docs: list):
-    docs = [doc.page_content for doc in docs]
-
+    docs = [
+        {
+            'page_content': doc.page_content,
+            'source': parse_filename(doc.metadata['source']),
+        }
+        for doc in docs
+    ]
     return docs
+
+
+def parse_filename(file_path):
+    return os.path.basename(file_path)
 
 
 def check_sqlite3_version():
