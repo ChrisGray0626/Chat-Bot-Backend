@@ -4,5 +4,5 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - /Users/yuxiaohui/Desktop/Code/Python/Chat-Bot-Backend/database:/app/database
-      - /Users/yuxiaohui/Desktop/Code/Python/Chat-Bot-Backend/.env:/app/.env
+      - ./database:/app/database
+      - ./.env:/app/.env
